@@ -42,7 +42,7 @@ runs:
         path: |
           ~/.cache/go-build
           ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum','**/go.mod') }}
+        key: ${{ runner.os }}-go-${{ hashFiles('**/tests/go.sum','**/tests/go.mod') }}
         restore-keys: |
           ${{ runner.os }}-go-
 
@@ -66,4 +66,4 @@ runs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install -r ./${{ inputs.service_path }}/tests/requirements.txt
+        pip install -r ./${{ inputs.service_path }}/tests/requirements-tests.txt

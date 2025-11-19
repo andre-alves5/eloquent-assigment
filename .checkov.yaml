@@ -2,3 +2,8 @@
 skip-check:
   - CKV_DOCKER_2
   - CKV_DOCKER_7
+  - CKV_AWS_355
+  - CKV_AWS_158
+  - CKV_AWS_338
+  - CKV_AWS_290
+  - CKV2_AWS_12

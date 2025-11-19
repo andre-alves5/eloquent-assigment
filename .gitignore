@@ -1,0 +1,19 @@
+# VSCode workspace settings
+.vscode/
+
+# Terraform directories and state
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+
+# Plan output
+*.plan
+
+# Certificates / keys
+*.pem
+*.key
+*.crt

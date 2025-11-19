@@ -10,10 +10,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions:
-  actions: write
-  contents: read
-
 jobs:
   filter:
     runs-on: ubuntu-24.04

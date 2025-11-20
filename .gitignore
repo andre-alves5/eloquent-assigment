@@ -1,17 +1,42 @@
-# VSCode workspace settings
+# --- IDE ---
 .vscode/
+.idea/
 
-# Terraform directories and state
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Terraform ---
+# LOCAL STATE (Critical to ignore)
 .terraform/
-.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 crash.log
+crash.log.*
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
-# Plan output
 *.plan
 
-# Certificates / keys
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment Variables (CRITICAL SECURITY)
+.env
+
+# --- Certificates / Keys ---
 *.pem
 *.key
 *.crt

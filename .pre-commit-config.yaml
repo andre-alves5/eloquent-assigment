@@ -1,17 +1,20 @@
----
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.90.0
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
+        # FIX: Force the hook to only run on files inside the 'infra' folder.
+        # This helps the script detect the correct directory to run 'terraform init/validate' in.
+        files: ^infra/
       - id: terraform_tflint
+        files: ^infra/
 
   - repo: https://github.com/psf/black
     rev: 24.4.2
     hooks:
       - id: black
-        args: [--line-length=88]  # auto-format Python
+        args: [--line-length=88]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.9
@@ -29,6 +32,8 @@ repos:
     rev: 3.2.493
     hooks:
       - id: checkov
+        # Best Practice: Explicitly ignore the .terraform folder to avoid scanning provider binaries
+        exclude: \.terraform/
         files: \.tf$|\.yaml$|\.yml$|\.json$
         args:
           - --config-file

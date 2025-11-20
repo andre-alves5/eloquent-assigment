@@ -44,9 +44,9 @@ jobs:
     if: ${{ needs.filter.outputs.app == 'true' }}
     uses: ./.github/workflows/app/deploy.yaml
 
-  infra-plan:
-    needs: filter
-    if: ${{ needs.filter.outputs.infra == 'true' }}
-    uses: ./.github/workflows/infra/plan.yaml
-    with:
-      environment: prd
+#  infra-plan:
+#    needs: filter
+#    if: ${{ needs.filter.outputs.infra == 'true' }}
+#    uses: ./.github/workflows/infra/plan.yaml
+#    with:
+#      environment: prd

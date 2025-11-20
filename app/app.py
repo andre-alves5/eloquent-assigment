@@ -16,7 +16,7 @@ def health():
 def hello():
     return JSONResponse(
         content={
-            "message": "Hello from Eloquent AI!",
+            "message": "Hello from Eloquent AI",
             "environment": os.getenv("ENVIRONMENT", "unknown"),
         }
     )

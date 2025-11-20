@@ -40,11 +40,7 @@ jobs:
       - name: run tests
         working-directory: ${{ matrix.service }}
         run: |
-          pwd
-          ls -la
-          cat go.mod || echo "no go.mod here"
-          echo "GOMOD: $(go env GOMOD)"
-          go list ./...
+          task test
 
   run-tests-failure-alert:
     runs-on: ubuntu-latest

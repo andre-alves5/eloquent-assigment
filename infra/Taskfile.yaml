@@ -6,10 +6,6 @@ vars:
   SERVICE_RELEASE_TAG: services/go/api-golang
 
 tasks:
-  install:
-    desc: "download dependencies"
-    cmds:
-      - go mod tidy
 
   install-ci:
     desc: install/download package dependencies

@@ -14,9 +14,7 @@ env:
   environment: prd
   AWS_REGION: us-east-1
   ECR_REPOSITORY: eloquent-ai-app
-  ECS_SERVICE: eloquent-api-svc
   ECS_CLUSTER: eloquent-cluster
-  CONTAINER_NAME: eloquent-app-container # Must match name in Task Def
 
 permissions:
   contents: read
@@ -87,13 +85,13 @@ jobs:
         id: plan
         run: |
           terraform workspace select ${{ env.environment }} || terraform workspace new ${{ env.environment }} &&
-          terraform plan -lock-timeout=60s -out="${{ env.environment }}.plan"
+          terraform plan -lock-timeout=60s -var-file="./envs/${{ env.environment }}/terraform.tfvars" -out="${{ env.environment }}.plan"
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
-          terraform apply -lock-timeout=60s "${{ inputs.environment }}.plan"
+          terraform workspace select ${{ env.environment }} || terraform workspace new ${{ env.environment }} &&
+          terraform apply -lock-timeout=60s "${{ env.environment }}.plan"
 
   build-and-push:
     name: "CD: Build & Push Image"
@@ -149,7 +147,7 @@ jobs:
 
       - name: Download Task Definition
         run: |
-          aws ecs describe-task-definition --task-definition ${{ env.ECS_SERVICE }} \
+          aws ecs describe-task-definition --task-definition ${{ env.environment }}-eloquent-api-svc \
           --query taskDefinition > taskdef.json
 
       - name: Fill in new image ID in the Amazon ECS task definition
@@ -157,13 +155,13 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: taskdef.json
-          container-name: ${{ env.CONTAINER_NAME }}
+          container-name: ${{ env.environment }}-eloquent-app-container
           image: ${{ needs.build-and-push.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true # Acts as a basic health check/rollback check
+          service: ${{ env.environment }}-eloquent-api-svc
+          cluster: ${{ env.environment }}-eloquent-cluster
+          wait-for-service-stability: true

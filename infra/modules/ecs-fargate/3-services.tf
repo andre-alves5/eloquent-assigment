@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "service" {
-  name             = "${var.env}-svc"
+  name             = "${var.env}-eloquent-api-svc"
   cluster          = aws_ecs_cluster.this.id
   task_definition  = aws_ecs_task_definition.this.arn
   desired_count    = var.desired-count
@@ -14,7 +14,7 @@ resource "aws_ecs_service" "service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.tg.arn
-    container_name   = "${var.env}-container"
+    container_name   = "${var.env}-eloquent-app-container"
     container_port   = var.container-port
   }
 

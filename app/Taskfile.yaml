@@ -54,4 +54,4 @@ tasks:
   test:
     desc: run tests
     cmds:
-      - pytest -q
+      - PYTHONPATH=.. pytest -q

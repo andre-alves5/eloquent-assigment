@@ -54,4 +54,4 @@ tasks:
   test:
     desc: run tests
     cmds:
-      - go test ./app -v
+      - go test ./app/tests -v

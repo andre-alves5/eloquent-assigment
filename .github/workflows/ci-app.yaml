@@ -4,6 +4,10 @@ name: "CI: Application"
 on:
   workflow_call:
     secrets:
+      SONAR_ORGANIZATION:
+        required: true
+      SONAR_PROJECT_KEY:
+        required: true
       SONAR_TOKEN:
         required: true
 
@@ -60,7 +64,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          # IMPORTANT: Replace these with the values from your SonarCloud project
           args: >
-            -Dsonar.organization=your-sonarcloud-organization
-            -Dsonar.projectKey=your-sonarcloud-project-key
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}

@@ -3,6 +3,11 @@ name: "CI: Infrastructure"
 
 on:
   workflow_call:
+    secrets:
+      AWS_ROLE_TO_ASSUME:
+        required: true
+      AWS_REGION:
+        required: true
 
 permissions:
   contents: read
@@ -21,6 +26,13 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-session-name: GitHub_CI_Infra_Test
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Terraform Init
         run: terraform init

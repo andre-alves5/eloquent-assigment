@@ -36,12 +36,14 @@ jobs:
     if: needs.changes.outputs.app == 'true'
     needs: [changes]
     uses: ./.github/workflows/ci-app.yaml
+    secrets: inherit
 
   ci_infra:
     name: "CI: Infra"
     if: needs.changes.outputs.infra == 'true'
     needs: [changes]
     uses: ./.github/workflows/ci-infra.yaml
+    secrets: inherit
 
   cd_infra:
     name: "CD: Infra"

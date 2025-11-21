@@ -1,15 +1,22 @@
 import os
+from pathlib import Path
+
+# --- Helpers ---
 
 
 def get_app_version():
-    """Helper to read the version file for tests."""
-    try:
-        with open("app/VERSION", "r") as f:
-            return f.read().strip()
-    except FileNotFoundError:
-        # In the test context, the path might be different.
-        with open("VERSION", "r") as f:
-            return f.read().strip()
+    """
+    Reads the application version from the VERSION file in the parent directory.
+    This makes the test robust to the current working directory.
+    """
+    # Path to this test file -> eloquent-assigment/app/tests/test_app.py
+    # .parent -> eloquent-assigment/app/tests/
+    # .parent.parent -> eloquent-assigment/app/
+    version_file = Path(__file__).parent.parent / "VERSION"
+    return version_file.read_text().strip()
+
+
+# --- Tests ---
 
 
 def test_health_endpoint(client):

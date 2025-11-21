@@ -14,6 +14,8 @@ on:
         required: true
       AWS_STATEFILE_S3_BUCKET:
         required: true
+      AWS_LOCK_DYNAMODB_TABLE:
+        required: true
 
 permissions:
   contents: read
@@ -46,7 +48,7 @@ jobs:
             -backend-config="bucket=${{ secrets.AWS_STATEFILE_S3_BUCKET }}" \
             -backend-config="key=${{ github.event.repository.name }}" \
             -backend-config="region=${{ secrets.AWS_REGION }}" \
-            -backend-config="use_lockfile=true"
+            -backend-config="dynamodb_table=${{ secrets.AWS_LOCK_DYNAMODB_TABLE }}"
 
       - name: Terraform Validate
         run: terraform validate

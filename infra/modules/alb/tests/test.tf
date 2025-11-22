@@ -1,6 +1,5 @@
 terraform {
   required_version = ">= 1.5.0"
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -29,16 +28,16 @@ module "test_vpc" {
 }
 
 module "test_alb" {
-  source = "../"
+  source = "../" # Go up to the ALB module root
 
   env                        = "test"
   project                    = "eloquent"
   internal                   = false
   lb-type                    = "application"
   enable-deletion-protection = false
-  log_bucket_name            = "log_bucket"
   vpc-id                     = module.test_vpc.vpc-id
   public-subnet-ids          = module.test_vpc.public-subnet-ids
   target-group-arn           = "arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/test/1234567890123456" # Dummy ARN
   certificate_arn            = "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"   # Dummy ARN
+  log_bucket_name            = "dummy-log-bucket"
 }

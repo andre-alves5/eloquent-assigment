@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        module: ['networking', 'acm', 'ecr', 'alb', 'ecs-fargate']
+        module: ['networking', 'acm', 'ecr', 'alb', 'ecs-fargate', 's3']
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

@@ -12,9 +12,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "test_acm" {
+module "test_s3" {
   source = "../"
 
+  env         = "test"
   project     = "eloquent"
-  domain_name = "test.example.com"
+  bucket_name = "test-log-bucket"
 }

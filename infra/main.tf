@@ -11,6 +11,7 @@ module "vpc" {
 module "acm" {
   source = "./modules/acm"
 
+  project     = var.project_name
   domain_name = var.domain_name
 }
 

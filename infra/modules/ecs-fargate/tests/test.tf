@@ -57,4 +57,5 @@ module "test_ecs" {
   private-subnet-ids     = module.test_vpc.private-subnet-ids
   alb-sg-id              = aws_security_group.dummy_alb_sg.id
   use_fargate_spot       = false
+  alb_listener_arn       = "arn:aws:elasticloadbalancing:us-east-1:123456789012:listener/app/test-alb/1234567890123456/1234567890123456" # Dummy ARN
 }
